@@ -2,15 +2,15 @@
 title       : Coursera DataProducts Assignment
 subtitle    : Decision Quality Shiny App
 author      : Joseph Kahn
-job         : 
-framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+job         : Decision Analyst 
+framework   : io2012   # {io2012, html5slides, shower, dzslides, ...}
+#output: ioslides_presentation
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
 hitheme     : tomorrow      # 
 widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
+date: "Monday, June 23, 2014"
 ---
-
-
 
 ## Goals
 
@@ -184,9 +184,7 @@ This plot demonstrates where all elements of decision quality have been adequate
 
 ```
 
-
 ---
-
 
 ## Conculsions
 
@@ -203,5 +201,3 @@ Acknowledgements to:
 * Rstudio for creating Shiny and hosting shiny.io
 * Creators of knitr and slidify
 * Our data products and data science instructors at Johns Hopkins!
-
-
