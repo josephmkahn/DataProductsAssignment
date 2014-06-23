@@ -1,4 +1,4 @@
-Data Products project assignment, Joseph Kahn
+Data Products project assignment
 ========
 
 This is a test deck for publishing a slidify document.
