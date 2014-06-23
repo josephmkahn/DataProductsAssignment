@@ -1,7 +1,7 @@
 ---
-title       : Test deck
-subtitle    : 
-author      : 
+title       : Coursera DataProducts Assignment
+subtitle    : Decision Quality Shiny App
+author      : Joseph Kahn
 job         : 
 framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
 highlighter : highlight.js  # {highlight.js, prettify, highlight}
@@ -10,17 +10,198 @@ widgets     : []            # {mathjax, quiz, bootstrap}
 mode        : selfcontained # {standalone, draft}
 ---
 
-## Read-And-Delete
 
-1. Edit YAML front matter
-2. Write using R Markdown
-3. Use an empty line followed by three dashes to separate slides!
 
---- .class #id 
+## Goals
 
-## Slide 2
+Before begining a data science task, it is most important to determine the purpose of the analysis.
+Often, we are performing analysis in support (directly or indirectly) of decision making.
+A broader picture of decision making considers the entire decision analysis cycle.
 
-```{r, fig.height=5, fig.width=5}
-plot(1 : 10, 1 : 10)
+Based on the [Decision Education Foundation](http://www.decisioneducation.org), there are 6 elements to acheiving decision quality:
+
+1. Appopriate Frame
+2. Clear Objectives
+3. Creative Alternatives
+4. Useful Information
+5. Sound Reasoning
+6. Commitment to Action
+
+This [Decision Quality Shiny App](http://josephmkahn.shinyapps.io/DecisionQuality) helps to facilitate good decision making by highlighting the key steps, and 
+allowing users to visually display the weak points in overall decision quality.
+
+---
+
+## Decision Quality Scale 
+
+Each element of decision quality can be rated from 0% up to 100%. Although we could spend forever 
+on any element, we mark 100% as the point at which it is no longer worth the extra effort to improve that element.
+The table below gives guidance at what 0% and 100% should look like for each element.
+
+```{r, results='asis', echo=FALSE, fig.height=5}
+
+library(fmsb)
+library(xtable)
+
+all.min <- 0
+all.max <- 100
+
+maxmin <- data.frame(
+  Frame=c(all.max, all.min)
+  , Commitment=c(all.max, all.min)
+  , Logic=c(all.max, all.min)
+  , Information=c(all.max, all.min)
+  , Alternatives=c(all.max, all.min)
+  , Objectives=c(all.max, all.min)
+)
+
+
+
+GuideDF <- data.frame(
+  At_0_Pct = c("Divergent understanding of purpose, but plowing ahead anyway",
+               "Missing key stakeholders, unclear on prime value drivers, ignoring important intangibles",
+               "One option / Business as Usual",
+               "Lacking info on key inputs, point estimates rather than ranges/distributions",
+               "Missing key issues, while over-complex on others. Results are confusing to the decision maker",
+               "Lack of stakeholder support, organizational hurdles, continual rework, too early or too late"),
+  
+  At_100_Pct = c("Alignment by key stakeholders and experts, and committed to the process",
+                 "Quantitative tradeoffs among stakeholders' key metrics, including time and risk preferences",
+                 "Multiple compelling Strategies",
+                 "Relevant info assessed and reviewed from trusted sources. Ranges and uncertainties well characterized",
+                 "Best choice(s) are clear, model is trusted, insights verified and robust",
+                 "Stakeholders bought in, team aligned, resources committed"))
+
+rownames(GuideDF) = c("Appropriate Frame",
+                      "Clear Objectives",
+                      "Creative Alternatives",
+                      "Useful Information",
+                      "Sound Reasoning",
+                      "Commitment to Action")
+
+colnames(GuideDF) = c("At 0%","At 100%")
+
+print(xtable(GuideDF),type='html')
+
 ```
+
+---
+
+## Example: lack of creative alternatives 
+
+This plot demonstrates where we have not considered any alternatives other than business as usual. As a result, stakeholders have not committed to the strategy.
+
+
+```{r, echo=FALSE, fig.height=5}
+
+
+    dat <- data.frame(
+      Frame=85
+      , Commitment=20
+      , Logic=90
+      , Information=85
+      , Alternatives=20
+      , Objectives=95
+    )
+    
+    dat <- rbind(maxmin,dat)
+    
+    
+    radarchart(dat
+               ## ## , axistype=0
+               , seg=5
+               , plty=1
+               , vlabels=c("Appropriate Frame"
+                           , "Commitment to\nAction"
+                           , "Sound\nReasoning"
+                           , "Useful Information"
+                           , "Creative\nAlternatives"
+                           , "Clear Objectives"
+               )
+               , pcol="deeppink4"               #blue
+               , plwd=3
+               , cglwd=2
+               , pfcol=c("darksalmon", 1, NA, NA, NA, NA)
+               , cex=1.5
+               , cex.lab=1.5
+               , cex.main=1.5
+               , cex.sub=1.5
+               , pdensity=20
+    )
+    
+
+
+
+```
+
+
+---
+
+## Example: High decision quality
+
+This plot demonstrates where all elements of decision quality have been adequately addressed, helping stakeholders to commit to action.
+
+
+```{r, echo=FALSE, fig.height=5 }
+
+
+    dat <- data.frame(
+      Frame=95
+      , Commitment=100
+      , Logic=90
+      , Information=90
+      , Alternatives=90
+      , Objectives=95
+    )
+    
+    dat <- rbind(maxmin,dat)
+    
+    
+    radarchart(dat
+               ## ## , axistype=0
+               , seg=5
+               , plty=1
+               , vlabels=c("Appropriate Frame"
+                           , "Commitment to\nAction"
+                           , "Sound\nReasoning"
+                           , "Useful Information"
+                           , "Creative\nAlternatives"
+                           , "Clear Objectives"
+               )
+               , pcol="deeppink4"               #blue
+               , plwd=3
+               , cglwd=2
+               , pfcol=c("darksalmon", 1, NA, NA, NA, NA)
+               , cex=1.5
+               , cex.lab=1.5
+               , cex.main=1.5
+               , cex.sub=1.5
+               , pdensity=20
+    )
+    
+
+
+
+```
+
+
+---
+
+
+## Conculsions
+
+This Decision Quality Shiny App assists users in thinking about the elements of decision quality
+The App is live at Shiny.io [http://josephmkahn.shinyapps.io/DecisionQuality](http://josephmkahn.shinyapps.io/DecisionQuality).
+Code and this presentation is archived on github [https://github.com/josephmkahn/DataProductsAssignment](https://github.com/josephmkahn/DataProductsAssignment) in the ShinyApp folder.
+
+Acknowledgements to:
+
+* The Decision Education Foundation [http://www.decisioneducation.org](http://www.decisioneducation.org)
+* fmsb R package, for the "radar" plot
+* Vineet Joshi, for assisting with cration of radar plots
+* Coursera for hosting the class
+* Rstudio for creating Shiny and hosting shiny.io
+* Creators of knitr and slidify
+* Our data products and data science instructors at Johns Hopkins!
+
 
